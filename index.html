@@ -6,24 +6,21 @@
   <title>Hello, World!</title>
   <style>
     body {
-      font-family: sans-serif; /* Use a clean sans-serif font */
-      
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-       /* Make the body take up the full viewport height */
-       /* Remove default body margins */
-      background:linear-gradient(to right,blue,white,green); /* Light background color */
+      font-family: sans-serif;
+      justify-content: center;
+      align-items: center;
+      background:linear-gradient(to right,blue,white,green);
     }
 
     h1 {
-      color: #007bff; /* A blue color for the heading */
-      text-align: center; /* Center the heading text */
-      font-size: 2.5em; /* Larger font size */
-      padding: 20px; /* Add some padding around the heading */
-      border: 2px solid #007bff; /* Add a border */
-      border-radius: 8px; /* Rounded corners for the border */
-      background-color: white; /*white background for the h1 element*/
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      color: #007bff;
+      text-align: center;
+      font-size: 2.5em;
+      padding: 20px;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   img{
     height:300px;
@@ -46,6 +43,24 @@
       color:green;
     }
   }
+  /* Add image adder styling */
+  .image-adder {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .image-adder input[type="file"] {
+    margin-bottom: 10px;
+  }
+
+  .image-adder button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
   </style>
 </head>
 <body>
@@ -54,5 +69,35 @@
   </h1><br/>
   <img src="IMG_20250326_103713_156 (1).jpg">
   <h2>OUR LEADER YS JAGAN MOHAN REDDY GARU</h2>
+
+  <div class="image-adder">
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="addImage()">Add Image</button>
+  </div>
+
+  <script>
+    function addImage() {
+      const input = document.getElementById('imageInput');
+      const file = input.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.height = '300px';
+          img.style.width = '100%';
+          img.style.objectFit = 'contain';
+          img.style.borderRadius = '5%';
+          document.body.insertBefore(img, document.querySelector('.image-adder')); // Insert before the adder div.
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        alert('Please select an image.');
+      }
+    }
+  </script>
 </body>
 </html>
